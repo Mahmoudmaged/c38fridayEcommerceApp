@@ -14,7 +14,7 @@ export function asyncHandler(fun) {
 export const globalErrorHandling = (err, req, res, next) => {
     if (process.env.MOOD === 'DEV') {
         if (err) {
-            res.status(err['cause']).json({
+            res.status(err['cause'] || 500).json({
                 message: "error",
                 err: err.message,
                 stack: err.stack
@@ -22,7 +22,7 @@ export const globalErrorHandling = (err, req, res, next) => {
         }
     } else {
         if (err) {
-            res.status(err['cause']).json({ message: "error", err: err.message ,   stack: err.stack })
+            res.status(err['cause'] || 500).json({ message: "error", err: err.message, stack: err.stack })
         }
     }
 
